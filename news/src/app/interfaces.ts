@@ -1,4 +1,4 @@
-export interface coment{
+export interface coment {
   text: string
 }
 export interface NewsInt {
@@ -9,5 +9,6 @@ export interface NewsInt {
   authorImg: string,
   datapublich: string,
   coments: coment[],
-  likes: number
+  likes: number,
+  views: number
 }
