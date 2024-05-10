@@ -4,7 +4,8 @@ import { CardNewsComponent } from '../card-news/card-news.component';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { NewsInt } from '../interfaces';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-mainsheet',
@@ -12,23 +13,26 @@ import { NgFor } from '@angular/common';
   imports: [
     CreatenewsComponent,
     CardNewsComponent,
-    NgFor
+    NgFor,
+    NgIf
   ],
   templateUrl: './mainsheet.component.html',
   styleUrl: './mainsheet.component.css'
 })
 export class MainsheetComponent {
-  news: NewsInt[] = [];
-  constructor(private router: Router, private newsService: DataService) { }
+  data!: NewsInt[];
+  private dataSubscription!: Subscription;
 
-  ngOnInit(): void {
-    this.newsService.getNews().subscribe(
-      (data: NewsInt[]) => {
-        this.news = data;
-      },
-      (error) => {
-        console.error('Error fetching cards:', error);
-      }
-    );
+  constructor(private dataService: DataService) { }
+
+  ngOnInit() {
+    this.dataSubscription = this.dataService.news$.subscribe(data => {
+      this.data = data;
+    });
+    this.dataService.fetchDataFromJSON();
+  }
+
+  ngOnDestroy() {
+    this.dataSubscription.unsubscribe();
   }
 }

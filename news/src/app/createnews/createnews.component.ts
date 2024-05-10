@@ -1,35 +1,9 @@
 import { Component } from '@angular/core';
-import {FormsModule} from "@angular/forms";
-import {Router} from "@angular/router";
-import {DataService} from "../services/data.service";
-import {coment, NewsInt} from "../interfaces";
-import {NONE_TYPE} from "@angular/compiler";
-class Card implements NewsInt {
-  author: string;
-  authorImg: string;
-  coments: coment[];
-  datapublich: string;
-  id: number;
-  img: string;
-  likes: number;
-  text: string;
-  views: number;
+import { FormsModule } from "@angular/forms";
+import { DataService } from "../services/data.service";
+import { NewsInt } from "../interfaces";
 
-  constructor(author: string, authorImg: string, coments: coment[], datapublich: string, id: number, img: string,
-              likes: number, text: string, views: number)
-  {
-    this.id = id;
-    this.author=author;
-    this.likes = likes;
-    this.datapublich = datapublich;
-    this.authorImg = authorImg;
-    this.text = text;
-    this.views = views;
-    this.coments = coments;
-    this.img = img;
-  }
 
-}
 @Component({
   selector: 'app-createnews',
   standalone: true,
@@ -42,25 +16,26 @@ class Card implements NewsInt {
 
 export class CreatenewsComponent {
   count: number = 0;
-  text: string= "";
+  text: string = "";
   filename: string = "";
-
   OnClick() {
     alert("Реализация этой кнопки стоит офера на джуна)) в тиньке например..");
   }
   constructor(private newsService: DataService) { }
 
-  createNews(myForm: any,fileForm: any){
+  createNews(myForm: any, fileForm: any) {
     this.text = myForm.value.textInput;
-    this.filename = fileForm.value.file;
-    let card = new Card("Людмила игоревна","assets/sara.png", [],"январь 24", 5, "", 5,this.text, 10);
+    this.filename = myForm.value.filename;
+    const card: NewsInt = { "id": 0, "img": this.filename, "text": this.text, "author": "Sara Jones", "authorImg": "assets/navbar/sara.png", "datapublich": "2024-05-09", "coments": [], "likes": 1, "views": 1 }
     this.newsService.addNews(card);
+    myForm.reset();
   }
   AddedImage() {
     alert("нажато");
   }
-  changelen(myForm: any){
+  changelen(myForm: any) {
     this.count = myForm.value.textInput.length;
 
   }
+
 }

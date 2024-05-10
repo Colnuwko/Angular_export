@@ -8,11 +8,11 @@
         "datapublich": "2024-05-10",
         "coments": [
             {
-                "user": "Пользователь 1",
+                "user": "Sara",
                 "comment": "Комментарий 1"
             },
             {
-                "user": "Пользователь 2",
+                "user": "Ira",
                 "comment": "Комментарий 2"
             }
         ],
@@ -39,7 +39,7 @@
         "datapublich": "2024-05-08",
         "coments": [
             {
-                "user": "Пользователь 3",
+                "user": "Sasha",
                 "comment": "Комментарий 3"
             }
         ],
