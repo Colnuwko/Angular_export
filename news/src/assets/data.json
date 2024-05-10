@@ -1,0 +1,49 @@
+[
+    {
+        "id": 1,
+        "img": "assets/news.png",
+        "text": "Новости номер 1",
+        "author": "Автор 1",
+        "authorImg": "assets/navbar/sara.png",
+        "datapublich": "2024-05-10",
+        "coments": [
+            {
+                "user": "Пользователь 1",
+                "comment": "Комментарий 1"
+            },
+            {
+                "user": "Пользователь 2",
+                "comment": "Комментарий 2"
+            }
+        ],
+        "likes": 10,
+        "views": 12
+    },
+    {
+        "id": 2,
+        "img": "assets/news.png",
+        "text": "Новости номер 2",
+        "author": "Автор 2",
+        "authorImg": "assets/navbar/sara.png",
+        "datapublich": "2024-05-09",
+        "coments": [],
+        "likes": 5,
+        "views": 16
+    },
+    {
+        "id": 3,
+        "img": "",
+        "text": "Новости номер 3",
+        "author": "Автор 3",
+        "authorImg": "assets/navbar/sara.png",
+        "datapublich": "2024-05-08",
+        "coments": [
+            {
+                "user": "Пользователь 3",
+                "comment": "Комментарий 3"
+            }
+        ],
+        "likes": 20,
+        "views": 10
+    }
+]

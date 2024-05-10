@@ -1,0 +1,38 @@
+<div class="bg-white rounded">
+    <div *ngIf="card.img">
+        <img class="w-full" [src]="card.img" />
+    </div>
+    <div class="flex flex-col gap-4 p-4">
+        <div class="font-bold text-grey">{{card.text}}</div>
+        <div class="flex gap-2">
+            <img [src]="card.authorImg" />
+            <div class="text-blue font-bold">{{card.author}}</div>
+        </div>
+        <div class="flex justify-between text-grey font-medium">
+            <div class="">{{card.likes}} likes</div>
+            <div>Views {{card.views}}</div>
+            <div>Publish: {{card.datapublich}}</div>
+            <img class="h-full" src="assets/navbar/like.png" />
+        </div>
+        <div class="flex  text-grey font-medium justify-between items-center ">
+            <div class="flex gap-2 items-center">
+                <img src="assets/like.png" />
+                <div>Like</div>
+            </div>
+            <div class="flex gap-2">
+                <div>{{card.coments.length}}</div>
+                <div>Comments</div>
+            </div>
+        </div>
+        <div class="">
+            <form class="" (ngSubmit)="submitForm($event)">
+                <input type="text" name="search" [(ngModel)]="formData.search" class="w-8/12">
+                <button class="text-grey font-medium" type="submit">Submit</button>
+            </form>
+        </div>
+
+    </div>
+
+
+
+</div>
