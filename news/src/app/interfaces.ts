@@ -1,5 +1,6 @@
-export interface coment {
-  text: string
+export interface Сoment {
+  user: string,
+  comment: string
 }
 export interface NewsInt {
   id: number,
@@ -8,7 +9,7 @@ export interface NewsInt {
   author: string,
   authorImg: string,
   datapublich: string,
-  coments: coment[],
+  coments: Сoment[],
   likes: number,
   views: number
 }

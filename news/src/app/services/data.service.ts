@@ -1,40 +1,48 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {Observable, map, BehaviorSubject} from 'rxjs';
-import { NewsInt } from '../interfaces';
+import { BehaviorSubject } from 'rxjs';
+import { NewsInt, Сoment } from '../interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  private cardsUrl = 'assets/data.json'; // Путь к вашему JSON-файлу
-   public dataSubject = new BehaviorSubject<NewsInt[]>([]);
-   data$: Observable<NewsInt[]> = this.dataSubject.asObservable();
-  addNews(card: NewsInt) {
-
-    const updatedData = [...this.dataSubject.getValue(), card];
-    console.log(this.data$ );
-    this.dataSubject.next(updatedData);
-    this.data$ = this.dataSubject.asObservable();
-    console.log(this.dataSubject);
-    console.log(this.data$ );
-
-  }
+  private newsSubject = new BehaviorSubject<NewsInt[]>([]);
+  public news$ = this.newsSubject.asObservable();
 
   constructor(private http: HttpClient) { }
 
+  fetchDataFromJSON() {
+    this.http.get<NewsInt[]>('assets/data.json')
+      .subscribe(data => {
+        this.newsSubject.next(data);
+      });
+  }
 
-  getNews(): Observable<NewsInt[]> {
-     console.log(this.http.get<NewsInt[]>(this.cardsUrl));
-     this.data$ = this.http.get<NewsInt[]>(this.cardsUrl);
-     console.log(this.data$);
-     return this.data$;
+  addNews(news: NewsInt) {
+    const currentNews = this.newsSubject.getValue();
+    currentNews.push(news);
+    this.newsSubject.next(currentNews);
   }
-  getCardsByNumber(ids: number[]): Observable<NewsInt[]> {
-    return this.http.get<NewsInt[]>(this.cardsUrl).pipe(
-      map((cards: NewsInt[]) => {
-        return cards.filter(card => card.id !== undefined && ids.includes(card.id));
-      })
-    );
+
+  addComentToNewsById(newsId: number, coment: Сoment) {
+    const currentNews = this.newsSubject.getValue();
+    const newsIndex = currentNews.findIndex(news => news.id === newsId);
+    if (newsIndex !== -1) {
+      if (!currentNews[newsIndex].coments) {
+        currentNews[newsIndex].coments = [];
+      }
+      currentNews[newsIndex].coments.push(coment);
+      this.newsSubject.next(currentNews);
+    }
   }
+  addLikeById(newsId: number) {
+    const currentNews = this.newsSubject.getValue();
+    const newsIndex = currentNews.findIndex(news => news.id === newsId);
+    if (newsIndex !== -1) {
+      currentNews[newsIndex].likes++; // Увеличиваем количество лайков на 1
+      this.newsSubject.next(currentNews);
+    }
+  }
+
 }
